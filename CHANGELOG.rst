@@ -1,6 +1,44 @@
 Changelog
 ---------
 
+`0.37.0`_ (2020-02-09)
+++++++++++++++++++++++++
+
+* **[Bugfixed]** 修复 ``NeutralToneWith5Mixin`` 在 ``TONE3`` 相关风格未把 5 标在预期的拼音末尾位置。
+* **[New]** 增加 Python 3.8 下的测试，正式支持 Python 3.8 。
+
+
+`0.36.0`_ (2019-10-27)
++++++++++++++++++++++++
+
+* **[New]** 增加 ``V2UMixin`` 用于支持无声调相关拼音风格下的结果使用 ``ü`` 代替原来的 ``v`` 。
+  详见 `文档 <https://pypinyin.readthedocs.io/zh_CN/master/contrib.html#v2umixin>`__ 。
+* **[New]** 增加 ``NeutralToneWith5Mixin`` 用于支持使用数字表示声调的拼音风格下使用 5 标识轻声。
+  详见 `文档 <https://pypinyin.readthedocs.io/zh_CN/master/contrib.html#neutraltonewith5mixin>`__ 。
+* **[New]** 增加 ``Pinyin`` 和 ``DefaultConverter`` 类用于实现自定义处理过程和结果
+  （实验性功能，绝大部分用户无需关心新增的这两个类）。
+* **[Improved]** 使用 `phrase-pinyin-data`_ v0.10.2 的词语拼音数据。
+* **[Improved]** 使用 `pinyin-data`_ v0.8.1 的拼音数据。
+
+
+`0.35.4`_ (2019-07-13)
++++++++++++++++++++++++
+
+* **[Bugfixed]** 修复 ``m̄`` ``ê̄``  ``ế`` ``ê̌`` ``ề`` 这几个音无法转换为不含声调结果的问题。
+* **[Improved]** 使用 `phrase-pinyin-data`_ v0.10.1 的词语拼音数据。 Fixed `#174`_
+* **[Improved]** 使用 `pinyin-data`_ v0.8.0 的拼音数据。
+* **[Improved]** 修复一处参数注释错误。(via `#176`_ Thanks `@yangwe1`_)
+
+
+`0.35.3`_ (2019-05-11)
+++++++++++++++++++++++++
+
+* **[Bugfixed]** 修复鼻音 ``m̀`` 无法转换为不含声调结果的问题。
+* **[Improved]** 使用 `phrase-pinyin-data`_ v0.10.0 的词语拼音数据。
+  Fixed `#166`_ `#167`_ `#169`_ `#170`_
+* **[Improved]** Windows CI 增加在 x64 下跑测试 (via `#164`_ Thanks `@hanabi1224`_)
+
+
 `0.35.2`_ (2019-04-06)
 +++++++++++++++++++++++
 
@@ -708,6 +746,15 @@ __ https://github.com/mozillazg/python-pinyin/issues/8
 .. _#159: https://github.com/mozillazg/python-pinyin/issues/159
 .. _#160: https://github.com/mozillazg/python-pinyin/issues/160
 .. _strict 参数的影响: https://pypinyin.readthedocs.io/zh_CN/master/usage.html#strict
+.. _#166: https://github.com/mozillazg/python-pinyin/issues/166
+.. _#167: https://github.com/mozillazg/python-pinyin/issues/167
+.. _#169: https://github.com/mozillazg/python-pinyin/issues/169
+.. _#170: https://github.com/mozillazg/python-pinyin/issues/170
+.. _#174: https://github.com/mozillazg/python-pinyin/issues/174
+.. _#164: https://github.com/mozillazg/python-pinyin/pull/164
+.. _#176: https://github.com/mozillazg/python-pinyin/pull/176
+.. _@hanabi1224: https://github.com/hanabi1224
+.. _@yangwe1: https://github.com/yangwe1
 
 
 .. _0.2.0: https://github.com/mozillazg/python-pinyin/compare/v0.1.0...v0.2.0
@@ -779,3 +826,7 @@ __ https://github.com/mozillazg/python-pinyin/issues/8
 .. _0.35.0: https://github.com/mozillazg/python-pinyin/compare/v0.34.1...v0.35.0
 .. _0.35.1: https://github.com/mozillazg/python-pinyin/compare/v0.35.0...v0.35.1
 .. _0.35.2: https://github.com/mozillazg/python-pinyin/compare/v0.35.1...v0.35.2
+.. _0.35.3: https://github.com/mozillazg/python-pinyin/compare/v0.35.2...v0.35.3
+.. _0.35.4: https://github.com/mozillazg/python-pinyin/compare/v0.35.3...v0.35.4
+.. _0.36.0: https://github.com/mozillazg/python-pinyin/compare/v0.35.4...v0.36.0
+.. _0.37.0: https://github.com/mozillazg/python-pinyin/compare/v0.36.0...v0.37.0

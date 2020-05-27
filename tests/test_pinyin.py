@@ -9,7 +9,7 @@ from pypinyin import (
     pinyin, slug, lazy_pinyin, load_single_dict,
     load_phrases_dict, NORMAL, TONE, TONE2, TONE3, INITIALS,
     FIRST_LETTER, FINALS, FINALS_TONE, FINALS_TONE2, FINALS_TONE3,
-    BOPOMOFO, BOPOMOFO_FIRST, CYRILLIC, CYRILLIC_FIRST
+    BOPOMOFO, BOPOMOFO_FIRST, CYRILLIC, CYRILLIC_FIRST, Style
 )
 from pypinyin.compat import SUPPORT_UCS4
 from pypinyin.core import seg
@@ -516,6 +516,47 @@ def test_heteronym_and_style(kwargs, result):
 def test_heteronym_and_style_phrase(kwargs, result):
     hans = '朝阳'
     assert pinyin(hans, **kwargs) == result
+
+
+def test_m4():
+    # U+5463: ḿ,móu,m̀  # 呣
+    han = '呣'
+    assert pinyin(han) == [['ḿ']]
+    assert pinyin(han, heteronym=True) == [['ḿ', 'móu', 'm̀']]
+    assert pinyin(
+        han, heteronym=True, style=NORMAL) == [['m', 'mou']]
+    assert pinyin(
+        han, heteronym=True, style=TONE) == [['ḿ', 'móu', 'm̀']]
+    assert pinyin(
+        han, heteronym=True, style=TONE2) == [['m2', 'mo2u', 'm4']]
+    assert pinyin(
+        han, heteronym=True, style=TONE3) == [['m2', 'mou2', 'm4']]
+    assert pinyin(
+        han, heteronym=True, style=INITIALS) == [['', 'm']]  # TODO: fix ''
+    assert pinyin(
+        han, heteronym=True, style=FIRST_LETTER) == [['m']]
+    assert pinyin(
+        han, heteronym=True, style=FINALS) == [['m', 'ou']]
+    assert pinyin(
+        han, heteronym=True, style=FINALS_TONE) == [['ḿ', 'óu', 'm̀']]
+    assert pinyin(
+        han, heteronym=True, style=FINALS_TONE2) == [['m2', 'o2u', 'm4']]
+    assert pinyin(
+        han, heteronym=True, style=FINALS_TONE3) == [['m2', 'ou2', 'm4']]
+
+
+@pytest.mark.parametrize('han,style,expect', [
+    ['呣', Style.TONE, ['ḿ', 'm̀']],
+    ['呣', Style.TONE2, ['m2', 'm4']],
+    ['嘸', Style.TONE, ['m̄', 'ḿ']],
+    ['嘸', Style.TONE2, ['m1', 'm2']],
+    ['誒', Style.TONE, ['ê̄', 'ế', 'ê̌', 'ề']],
+    ['誒', Style.TONE2, ['ê1', 'ê2', 'ê3', 'ê4']],
+])
+def test_m_e(han, style, expect):
+    result = pinyin(han, style=style, heteronym=True)
+    assert len(result) == 1
+    assert (set(result[0]) & set(expect)) == set(expect)
 
 
 if __name__ == '__main__':
